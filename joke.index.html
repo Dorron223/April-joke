@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ 病毒警报 ⚠️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            cursor: wait;
+            overflow: hidden;
+        }
+        .warning-header {
+            width: 100%;
+            background: #8B0000;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 4vw;
+            font-weight: bold;
+        }
+        .virus-scan {
+            font-size: 5vw;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #ff0000;
+            animation: glitch 0.5s infinite;
+        }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(5px, -5px); }
+            60% { transform: translate(-5px, 5px); }
+            80% { transform: translate(5px, -5px); }
+        }
+        .progress-container {
+            width: 80%;
+            background: #333;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            height: 30px;
+            background: #ff0000;
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.1s;
+        }
+        .countdown {
+            font-size: 4vw;
+            color: #ccc;
+            margin-top: 20px;
+        }
+        
+        /* 自定义弹窗样式 */
+        .custom-alert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            height: 40%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 100;
+            padding: 20px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .custom-alert h2 {
+            color: #ff3366;
+            font-size: 8vw;
+            margin-bottom: 20px;
+        }
+        .custom-alert p {
+            color: #333;
+            font-size: 5vw;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-header">⚠️ 系统安全警报 ⚠️</div>
+    <div class="virus-scan">检测到病毒入侵...</div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="countdown" id="countdown">正在启动清除程序: 5秒</div>
+    
+    <!-- 自定义弹窗 -->
+    <div class="overlay" id="overlay"></div>
+    <div class="custom-alert" id="customAlert">
+        <h2>🎉 愚人节快乐！</h2>
+        <p>你的手机其实很安全~</p>
+    </div>
+
+    <script>
+        // 模拟病毒扫描进度条
+        let progress = 0;
+        const progressBar = document.getElementById('progressBar');
+        const progressInterval = setInterval(() => {
+            progress += Math.random() * 10;
+            if (progress > 100) progress = 100;
+            progressBar.style.width = progress + '%';
+            
+            if (progress === 100) {
+                clearInterval(progressInterval);
+            }
+        }, 200);
+
+        // 倒计时显示
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown');
+        const countdownInterval = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = `正在启动清除程序: ${seconds}秒`;
+            
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                showAlert();
+            }
+        }, 1000);
+
+        // 显示愚人节弹窗
+        function showAlert() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('customAlert').style.display = 'flex';
+            
+            // 5秒后自动跳转（彩蛋）
+            setTimeout(() => {
+                window.location.href = "https://arxiv.org/pdf/2503.24254"; // 替换成你想跳转的链接
+            }, 5000);
+        }
+
+        // 点击弹窗外部关闭
+        document.getElementById('overlay').addEventListener('click', function() {
+            this.style.display = 'none';
+            document.getElementById('customAlert').style.display = 'none';
+        });
+
+        // 点击页面随机变色（彩蛋）
+        document.addEventListener('click', function(e) {
+            if(e.target.id !== 'customAlert') {
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+                document.body.style.background = colors[Math.floor(Math.random() * colors.length)];
+            }
+        });
+    </script>
+</body>
+</html>
